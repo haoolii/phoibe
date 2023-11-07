@@ -21,6 +21,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { Pagination } from '@/components/pagination';
 
 interface Record {
   id: string;
@@ -55,6 +56,13 @@ const columns: ColumnDef<Record>[] = [
   {
     accessorKey: 'count',
     header: '件數',
+  },
+  {
+    accessorKey: 'action1',
+    header: 'Action',
+    cell: () => {
+      return <Button variant='link'>Link</Button>;
+    },
   },
 ];
 
@@ -113,7 +121,7 @@ export const WebSiteBoard = () => {
   useEffect(() => {
     console.log('pagination', pagination);
     clickSearch();
-  }, [pagination]);
+  }, [pagination, clickSearch]);
 
   return (
     <div className=''>
@@ -141,8 +149,13 @@ export const WebSiteBoard = () => {
           </div>
         </div>
       </div>
-      <div className='py-10'>
-        <Table>
+      <div className='container py-10'>
+        <Pagination
+          total={totalCount}
+          pageIndex={pagination.pageIndex}
+          pageSize={pagination.pageSize}
+        />
+        {/* <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -189,7 +202,7 @@ export const WebSiteBoard = () => {
               </TableRow>
             )}
           </TableBody>
-        </Table>
+        </Table> */}
       </div>
       <div className='flex items-center justify-end space-x-2 py-4'>
         <Button

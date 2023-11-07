@@ -7,12 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model config {
+  id             String   @id @default(uuid())
+  enable         Boolean  @default(false)
+  title          String
+  title_en       String
+  description    String
+  description_en String
+  syncDataAt     DateTime
+  checkDataAt    DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt()
+}
+
 model Record {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   websiteName String
   url         String
   count       Int
+  originId    String
+  source      Source    @relation(fields: [sourceId], references: [id])
   sourceId    String
+  published   Boolean
+  deleted     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt()
+  comments    Comment[]
+}
+
+model Source {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  deleted     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
+  Record      Record[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  message   String
+  published Boolean
+  deleted   Boolean  @default(false)
+  record    Record   @relation(fields: [recordId], references: [id])
+  recordId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 }

@@ -122,10 +122,16 @@ export const WebSiteBoard = () => {
     console.log('pagination', pagination);
     clickSearch();
   }, [pagination, clickSearch]);
+  
+  const [total, setTotal] = useState(300);
+  const [index, setIndex] = useState(0);
+  const [size, setSize
+  ] = useState(20);
+  const count = Math.ceil(total / pageSize);
 
   return (
     <div className=''>
-      <div className='bg-primary pb-16 pt-40'>
+      {/* <div className='bg-primary pb-16 pt-40'>
         <div className='container'>
           <div className='mb-4 text-center'>
             <h1 className='text-2xl font-bold text-white'>
@@ -148,12 +154,29 @@ export const WebSiteBoard = () => {
             </Button>
           </div>
         </div>
+      </div> */}
+      <div>
+        <div> total: {total} </div>
+        <div> index: {index} </div>
+        <div> size: {size} </div>
+        <div> count: {count} </div>
+        <Button variant="link" onClick={() => {
+          if (index - 1 >= 0) {
+            setIndex(index - 1)
+          }
+        }}>Prev</Button>
+        <Button variant="link" onClick={() => {
+          if (index + 1 <= count - 1) {
+            setIndex(index + 1)
+          }
+        }}>Next</Button>
       </div>
       <div className='container py-10'>
         <Pagination
-          total={totalCount}
-          pageIndex={pagination.pageIndex}
-          pageSize={pagination.pageSize}
+          total={total}
+          pageIndex={index + 1}
+          pageSize={size}
+          onPageIndexChange={index => setIndex(index - 1)}
         />
         {/* <Table>
           <TableHeader>

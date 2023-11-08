@@ -12,6 +12,9 @@ export const GET = async (request: NextRequest) => {
   const [totalCount, records] = await prisma.$transaction([
     prisma.record.count(),
     prisma.record.findMany({
+      include: {
+        source: true
+      },
       skip,
       take,
       where: {

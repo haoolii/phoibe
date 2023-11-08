@@ -42,7 +42,7 @@ model Source {
   deleted     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
-  Records      Record[]
+  records      Record[]
 }
 
 model Comment {

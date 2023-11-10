@@ -13,9 +13,12 @@ export const GET = async (
     const record = await prisma.record.findFirst({
       include: {
         source: true,
+        comments: true
       },
       where: {
         id,
+        deleted: false,
+        published: true
       },
     });
     if (!record) {

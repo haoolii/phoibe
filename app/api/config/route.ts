@@ -7,20 +7,10 @@ const prisma = new PrismaClient();
 export const GET = async (request: NextRequest) => {
   try {
     const config = await prisma.config.findFirst();
-
-    return NextResponse.json({
-      msg: '',
-      data: {
-        config,
-        env: JSON.stringify(process.env),
-      },
-      code: ResponseCode.OK,
-    });
+    return NextResponse.json({ msg: '', data: config, code: ResponseCode.OK });
   } catch (err) {
     return NextResponse.json({
-      data: {
-        env: JSON.stringify(process.env),
-      },
+      data: null,
       msg: 'Error',
       code: ResponseCode.ERROR,
     });

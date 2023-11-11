@@ -26,7 +26,6 @@ export const getRecords = async ({
   url,
 }: GetRecordsProps): Promise<APIResponse<GetRecordsResponse>> => {
   const apiUrl = createAPI(API.GET_RECORDS);
-  console.log('process.env.PHOIBE_API', `${process.env.PHOIBE_API}${apiUrl}`)
   return await axios
     .request({
       url: `${process.env.PHOIBE_API}${apiUrl}`,

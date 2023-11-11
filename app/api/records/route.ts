@@ -5,9 +5,11 @@ import { type NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
+export const dynamic = 'force-dynamic';
+
 export const GET = async (request: NextRequest) => {
   try {
-    const searchParams = request.nextUrl.searchParams;
+    const { searchParams } = new URL(request.url || '');
     const skip = +(searchParams.get('skip') || 0);
     const take = +(searchParams.get('take') || 20);
     const url = searchParams.get('url') || '';
@@ -24,8 +26,8 @@ export const GET = async (request: NextRequest) => {
       prisma.record.findMany({
         orderBy: [
           {
-            createdAt: 'desc'
-          }
+            createdAt: 'desc',
+          },
         ],
         include: {
           source: true,

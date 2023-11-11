@@ -50,6 +50,7 @@ export const GET = async (request: NextRequest) => {
       code: ResponseCode.OK,
     });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({
       msg: 'Error',
       data: null,

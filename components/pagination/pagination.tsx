@@ -59,6 +59,9 @@ export const Pagination = ({
         }
         return item.type ? diff[item.type] : 0
     }
+    if (total <= 0) {
+        return <></>
+    }
     return (
         <div className="flex gap-1">
             {

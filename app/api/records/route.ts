@@ -22,6 +22,11 @@ export const GET = async (request: NextRequest) => {
         },
       }),
       prisma.record.findMany({
+        orderBy: [
+          {
+            createdAt: 'desc'
+          }
+        ],
         include: {
           source: true,
         },

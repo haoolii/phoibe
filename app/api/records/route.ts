@@ -53,7 +53,7 @@ export const GET = async (request: NextRequest) => {
     console.error(err);
     return NextResponse.json({
       msg: 'Error',
-      data: null,
+      data: JSON.stringify(err),
       code: ResponseCode.ERROR,
     });
   }

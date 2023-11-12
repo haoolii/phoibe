@@ -40,3 +40,46 @@ export const getRecords = async ({
       return response.data;
     });
 };
+
+export type PostRecordCommentProps = {
+  id: string;
+  message: string;
+};
+
+export const postRecordComment = async ({
+  id,
+  message,
+}: PostRecordCommentProps) => {
+  const apiUrl = createAPI(API.POST_RECORDS_COMMENTS, { pathParams: { id } });
+  return await axios
+    .request({
+      url: `${process.env.PHOIBE_API}${apiUrl}`,
+      method: 'post',
+      data: {
+        message,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
+export type PostReportProps = {
+  websiteName: string;
+  url: string;
+};
+
+export const postReport = async ({ websiteName, url }: PostReportProps) => {
+  const apiUrl = createAPI(API.POST_REPORT);
+  return await axios
+    .request({
+      url: `${process.env.PHOIBE_API}${apiUrl}`,
+      method: 'post',
+      data: {
+        websiteName,
+        url,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+};

@@ -2,8 +2,7 @@ import { ResponseCode } from '@/lib/constants/response-code';
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
-
-const prisma = new PrismaClient();
+import db from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +12,8 @@ export const GET = async (request: NextRequest) => {
     const skip = +(searchParams.get('skip') || 0);
     const take = +(searchParams.get('take') || 20);
     const url = searchParams.get('url') || '';
-    const [totalCount, records] = await prisma.$transaction([
-      prisma.record.count({
+    const [totalCount, records] = await db.$transaction([
+      db.record.count({
         where: {
           url: {
             contains: url,
@@ -23,7 +22,7 @@ export const GET = async (request: NextRequest) => {
           deleted: false,
         },
       }),
-      prisma.record.findMany({
+      db.record.findMany({
         orderBy: [
           {
             createdAt: 'desc',
@@ -33,7 +32,7 @@ export const GET = async (request: NextRequest) => {
           source: true,
         },
         skip,
-        take,
+        take: take > 20 ? 20 : take,
         where: {
           url: {
             contains: url,

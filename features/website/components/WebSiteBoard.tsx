@@ -17,6 +17,7 @@ import { getRecords } from '@/lib/requests/report.request';
 import { Record } from '@/lib/types';
 import { CookieIcon } from '@radix-ui/react-icons';
 import { useDebounce } from '@react-hook/debounce';
+import Link from 'next/link'
 
 export const WebSiteBoard = () => {
   const [records, setRecords] = useState<Record[]>([]);
@@ -142,6 +143,11 @@ export const WebSiteBoard = () => {
                         <TableCell>
                           <Badge>{record.source?.name || '???'}</Badge>
                         </TableCell>
+                        <Table>
+                          <Link href={`/record/${record.id}`} scroll={false}>
+                            <Button>Detail</Button>
+                          </Link>
+                        </Table>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -150,6 +156,7 @@ export const WebSiteBoard = () => {
             )}
           </div>
           <Pagination
+            disabled={loading}
             pageIndex={pageIndex + 1}
             pageSize={pageSize}
             total={totalCount}
@@ -159,33 +166,6 @@ export const WebSiteBoard = () => {
           />
         </div>
       </section>
-      {/* <section>
-        <div className='container max-w-4xl py-20 flex flex-col items-center gap-10'>
-          <h3 className="text-primary text-xl">最新回報</h3>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>網站名稱</TableHead>
-                <TableHead>網址</TableHead>
-                <TableHead>來源</TableHead>
-                <TableHead className='text-right'>回報數</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.records.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell>{record.websiteName}</TableCell>
-                  <TableCell>{record.url}</TableCell>
-                  <TableCell><Badge>{record.source.name}</Badge></TableCell>
-                  <TableCell>
-
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </section> */}
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import { ResponseCode } from '@/lib/constants/response-code';
-import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
+import db from '@/lib/db';
 
 export const GET = async (
     request: NextRequest,
@@ -14,15 +12,15 @@ export const GET = async (
     const skip = +(searchParams.get('skip') || 0);
     const take = +(searchParams.get('take') || 20);
     const url = searchParams.get('url') || '';
-    const [totalCount, comments] = await prisma.$transaction([
-      prisma.comment.count({
+    const [totalCount, comments] = await db.$transaction([
+      db.comment.count({
         where: {
             recordId,
             published: true,
             deleted: false,
         }
       }),
-      prisma.comment.findMany({
+      db.comment.findMany({
         skip,
         take,
         where: {
@@ -50,7 +48,7 @@ export const POST = async (
   try {
     const id = params.id;
     const { message } = await request.json();
-    const comment = await prisma.comment.create({
+    const comment = await db.comment.create({
       data: {
         recordId: id,
         message,

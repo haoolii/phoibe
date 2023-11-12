@@ -1,12 +1,11 @@
-import { PrismaClient } from '@prisma/client';
 import { NextResponse, type NextRequest } from 'next/server';
 import { ResponseCode } from '@/lib/constants/response-code';
+import db from '@/lib/db';
 
-const prisma = new PrismaClient();
 
 export const GET = async (request: NextRequest) => {
   try {
-    const config = await prisma.config.findFirst();
+    const config = await db.config.findFirst();
     return NextResponse.json({ msg: '', data: config, code: ResponseCode.OK });
   } catch (err) {
     return NextResponse.json({

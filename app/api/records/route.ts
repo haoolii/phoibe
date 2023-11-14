@@ -1,5 +1,4 @@
 import { ResponseCode } from '@/lib/constants/response-code';
-import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
 import db from '@/lib/db';

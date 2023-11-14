@@ -15,9 +15,10 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/pagination';
 import { getRecords } from '@/lib/requests/report.request';
 import { Record } from '@/lib/types';
-import { CookieIcon } from '@radix-ui/react-icons';
+import { CookieIcon, CaretRightIcon } from '@radix-ui/react-icons';
 import { useDebounce } from '@react-hook/debounce';
-import Link from 'next/link'
+import Link from 'next/link';
+import { NoData } from '@/components/no-data';
 
 export const WebSiteBoard = () => {
   const [records, setRecords] = useState<Record[]>([]);
@@ -53,7 +54,11 @@ export const WebSiteBoard = () => {
 
   return (
     <div className=''>
-      <div className={`flex ${url ? 'h-[300px]' : 'h-[500px]'} items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}>
+      <div
+        className={`flex ${
+          url ? 'h-[300px]' : 'h-[500px]'
+        } items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}
+      >
         {url ? (
           <div className='container mx-auto flex max-w-3xl flex-col'>
             <div className='flex flex-col items-center gap-8'>
@@ -122,10 +127,10 @@ export const WebSiteBoard = () => {
           {!url && (
             <h3 className='text-xl text-primary'>{`最新風險、詐騙網址`}</h3>
           )}
-          <div className='flex md:min-h-[600px] w-full justify-center'>
+          <div className='flex w-full justify-center md:min-h-[600px]'>
             {loading ? (
               <CookieIcon className='animate-infinite animate-ease-out my-20 h-20 w-20 animate-ping text-primary' />
-            ) : (
+            ) : records.length ? (
               <>
                 <Table>
                   <TableHeader>
@@ -143,16 +148,20 @@ export const WebSiteBoard = () => {
                         <TableCell>
                           <Badge>{record.source?.name || '???'}</Badge>
                         </TableCell>
-                        <Table>
-                          <Link href={`/record/${record.id}`} scroll={false}>
-                            <Button>Detail</Button>
+                        <TableCell className='p-0'>
+                          <Link href={`/record/${record.id}`} scroll={true}>
+                            <Button variant='ghost' className=''>
+                              <CaretRightIcon className='text-primary' />
+                            </Button>
                           </Link>
-                        </Table>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </>
+            ) : (
+              <NoData title={`未搜尋到 ${url}`} />
             )}
           </div>
           <Pagination

@@ -1,13 +1,7 @@
 import axios from 'axios';
 import { createAPI, API } from '../apis';
-import { Record } from '../types';
+import { APIResponse, Record } from '../types';
 import getConfig from 'next/config';
-
-export type APIResponse<T> = {
-  code: number;
-  data: T;
-  msg: string;
-};
 
 export type GetRecordsProps = {
   skip: number;
@@ -41,28 +35,6 @@ export const getRecords = async ({
     });
 };
 
-export type PostRecordCommentProps = {
-  id: string;
-  message: string;
-};
-
-export const postRecordComment = async ({
-  id,
-  message,
-}: PostRecordCommentProps) => {
-  const apiUrl = createAPI(API.POST_RECORDS_COMMENTS, { pathParams: { id } });
-  return await axios
-    .request({
-      url: `${process.env.PHOIBE_API}${apiUrl}`,
-      method: 'post',
-      data: {
-        message,
-      },
-    })
-    .then((response) => {
-      return response.data;
-    });
-};
 export type PostReportProps = {
   websiteName: string;
   url: string;

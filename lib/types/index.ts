@@ -32,3 +32,10 @@ export interface Record {
     createdAt: string
     updatedAt: string
   }
+
+  
+export type APIResponse<T> = {
+  code: number;
+  data: T;
+  msg: string;
+};

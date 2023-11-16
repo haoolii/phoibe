@@ -32,6 +32,8 @@ model Record {
   deleted     Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt()
+  description String?
+  reportIP    String?
   comments    Comment[]
 }
 
@@ -42,7 +44,7 @@ model Source {
   deleted     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
-  records      Record[]
+  records     Record[]
 }
 
 model Comment {
@@ -52,6 +54,7 @@ model Comment {
   deleted   Boolean  @default(false)
   record    Record   @relation(fields: [recordId], references: [id])
   recordId  String
+  commentIP String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 }

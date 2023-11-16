@@ -11,7 +11,6 @@ export const GET = async (
     const searchParams = request.nextUrl.searchParams;
     const skip = +(searchParams.get('skip') || 0);
     const take = +(searchParams.get('take') || 20);
-    const url = searchParams.get('url') || '';
     const [totalCount, comments] = await db.$transaction([
       db.comment.count({
         where: {
@@ -22,12 +21,15 @@ export const GET = async (
       }),
       db.comment.findMany({
         skip,
-        take,
+        take: take > 20 ? 20 : take,
         where: {
           recordId,
           published: true,
           deleted: false,
         },
+        orderBy: {
+          createdAt: "desc"
+        }
       }),
     ]);
       return NextResponse.json({ msg: '', data: { comments, totalCount }, code: ResponseCode.OK });

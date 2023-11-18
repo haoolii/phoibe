@@ -30,6 +30,7 @@ export const getLatestRecords = async (): Promise<
       method: 'get'
     })
     .then((response) => {
+      console.log(response)
       return response.data;
     });
 };

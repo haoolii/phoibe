@@ -45,7 +45,7 @@ export const LatestRecords = () => {
   }, []);
   
   return (
-    <div className='flex flex-col w-full items-center md:min-h-[600px]'>
+    <div className='flex flex-col w-full items-center md:min-h-[600px] space-y-4'>
         <h3 className='text-xl text-primary'>{`最新風險、詐騙網址`}</h3>
       <Table>
         <TableHeader>
@@ -53,6 +53,7 @@ export const LatestRecords = () => {
             <TableHead>網站名稱</TableHead>
             <TableHead>網址</TableHead>
             <TableHead>來源</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

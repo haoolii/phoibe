@@ -2,7 +2,8 @@
 
 ### API
 - `GET /api/config`
-- `GET /api/records`
+- `GET /api/records` 
+- `GET /api/latest-record`
 - `GET /api/records/{id}`
   
 - `POST /api/report`

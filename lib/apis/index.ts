@@ -1,10 +1,11 @@
 export const API = {
   GET_CONFIG: '/api/config',
   GET_RECORDS: '/api/records',
+  GET_LATEST_RECORDS: '/api/latest-records',
   GET_RECORD: '/api/records/{{id}}',
   GET_RECORDS_COMMENTS: '/api/records/{{id}}/comments',
   POST_RECORDS_COMMENTS: '/api/records/{{id}}/comments',
-  POST_REPORT: '/api/report',
+  POST_REPORT: '/api/report/',
 };
 
 export const createAPI = (

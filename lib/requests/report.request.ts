@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { createAPI, API } from '../apis';
-import { APIResponse, Record } from '../types';
-import getConfig from 'next/config';
+
+import {
+  API,
+  createAPI,
+} from '../apis';
+import {
+  APIResponse,
+  Record,
+} from '../types';
 
 export type GetRecordsProps = {
   skip: number;
@@ -12,6 +18,20 @@ export type GetRecordsProps = {
 export type GetRecordsResponse = {
   records: Record[];
   totalCount: number;
+};
+
+export const getLatestRecords = async (): Promise<
+  APIResponse<GetRecordsResponse>
+> => {
+  const apiUrl = createAPI(API.GET_LATEST_RECORDS);
+  return await axios
+    .request({
+      url: `${process.env.PHOIBE_API}${apiUrl}`,
+      method: 'get'
+    })
+    .then((response) => {
+      return response.data;
+    });
 };
 
 export const getRecords = async ({

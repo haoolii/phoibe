@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { createAPI, API } from '../apis';
+import { createAPI, API, cacheAxios as axios } from '../apis';
 import { APIResponse, Comment } from '../types';
 
 export type GetCommentsProps = {

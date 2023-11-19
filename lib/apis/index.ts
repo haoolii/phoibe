@@ -22,10 +22,10 @@ export const createAPI = (
   return url.replace(/\{\{(\w+)\}\}/g, (match, p1) => pathParams[p1]);
 };
 
-export const cacheAxios = setupCache(Axios, {
+export const cacheAxios = setupCache(Axios.create(), {
   storage:
     typeof window !== 'undefined'
       ? buildWebStorage(localStorage, 'axios-cache:')
       : undefined,
-  ttl: 1000 * 2,
+  ttl: 1000 * 60,
 });

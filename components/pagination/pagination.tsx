@@ -82,6 +82,8 @@ export const PaginationAction = ({
       </Button>
     );
   }
+
+  return <></>
 };
 
 export const Pagination = ({
@@ -122,11 +124,12 @@ export const Pagination = ({
           <PaginationAction
             disabled={disabled}
             onClick={() => {
+              console.log('Change', getDiffIndex(pageIndex, item))
               item.type && onPageIndexChange(getDiffIndex(pageIndex, item));
             }}
             currentIndex={pageIndex}
             item={item}
-          />
+          ></PaginationAction>
         </div>
       ))}
     </div>

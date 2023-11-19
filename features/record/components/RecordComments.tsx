@@ -55,29 +55,6 @@ export const RecordComments = ({ recordId }: RecordCommentsProps) => {
   return (
     <div className='flex flex-col space-y-8'>
       <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-semibold text-primary'>我要評論</h3>
-      <Card>
-        <CardHeader>
-          <CardDescription>
-            請寫下此網站評論，供其他網友防範參考
-          </CardDescription>
-        </CardHeader>
-        <CardContent className='flex space-x-4'>
-          <Input disabled={loading} onChange={(e) => setMessage(e.target.value)} value={message} />
-        </CardContent>
-        <CardFooter className='flex justify-end'>
-          <Button
-            disabled={!message.length || loading}
-            onClick={(e) => {
-              submit();
-            }}
-          >
-            送出
-          </Button>
-        </CardFooter>
-      </Card>
-      </div>
-      <div className='flex flex-col gap-4'>
         <h3 className='text-xl font-semibold text-primary'>相關評論</h3>
         {comments.map((comment) => {
           return (
@@ -108,6 +85,27 @@ export const RecordComments = ({ recordId }: RecordCommentsProps) => {
           />
         </div>
       </div>
+      <form className='flex flex-col gap-4 pt-6 pb-20'
+      onSubmit={e => {
+        e.preventDefault();
+        submit()
+      }}
+      >
+        <h3 className='text-xl font-semibold text-primary'>我要評論</h3>
+        <h4 className="text-sm">請寫下此網站評論，供其他網友防範參考</h4>
+        <Input
+          disabled={loading}
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
+        />
+        <div>
+          <Button
+            disabled={!message.length || loading}
+          >
+            送出
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

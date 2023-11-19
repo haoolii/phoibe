@@ -1,5 +1,6 @@
 import { BaseLayout } from '@/components/layout';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -12,12 +13,17 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { RecordComments } from '@/features/record/components/RecordComments';
 import db from '@/lib/db';
+import { CaretLeftIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 export default async function RecordDetail({
   params,
+  searchParams,
 }: {
   params: { id: string };
+  searchParams: { search: string };
 }) {
+  const search = searchParams.search;
   try {
     const record = await db.record.findUnique({
       include: {
@@ -33,36 +39,49 @@ export default async function RecordDetail({
     return (
       <div>
         <div
-          className={`flex min-h-[300px] items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-10 pt-28 transition-all`}
+          className={`flex min-h-[300px] items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-10 pt-20 transition-all`}
         >
           <div className='container mx-auto max-w-5xl space-y-6'>
-            <div className='flex max-w-full items-center space-x-4'>
-              <h2 className='whitespace-nowrap text-xl text-white'>網站名稱</h2>
-              <div className='inline-block rounded-lg bg-primary-foreground px-4 py-1'>
-                <h2 className='font-medium text-primary'>
-                  {record.websiteName}
-                </h2>
-              </div>
+            {search === undefined ? (
+              <Link href='/'>
+                <Button variant='link' className='text-white flex space-x-2 p-0'>
+                  <CaretLeftIcon />
+                  <span>
+                    返回
+                  </span>
+                </Button>
+              </Link>
+            ) : (
+              <Link href={{ pathname: '/record', query: { search } }}>
+                  <Button variant='link' className='text-white flex space-x-2 p-0'>
+                  <CaretLeftIcon />
+                  <span>
+                    返回
+                  </span>
+                </Button>
+              </Link>
+            )}
+            <div className='flex flex-col space-y-2'>
+              <span className='text-white opacity-75'>網站名稱</span>
+              <h2 className='text-2xl font-medium text-white'>
+                {record.websiteName}
+              </h2>
             </div>
-            <div className='flex max-w-full items-center space-x-4'>
-              <h2 className='whitespace-nowrap text-xl text-white'>網站網址</h2>
-              <div className='inline-block rounded-lg bg-primary-foreground px-4 py-1'>
-                <h2 className='break-all font-medium text-primary'>
-                  {record.url}
-                </h2>
-              </div>
+            <div className='flex flex-col space-y-2'>
+              <span className='text-white opacity-75'>網站網址</span>
+              <h2 className='text-2xl font-medium text-white'>{record.url}</h2>
             </div>
-            <div className='flex max-w-full items-center space-x-4'>
-              <h2 className='whitespace-nowrap text-xl text-white'>通報來源</h2>
-              <h2 className='font-medium text-primary'>
-                <Badge>{record.source.name}</Badge>
+            <div className='flex flex-col space-y-2'>
+              <span className='text-white opacity-75'>通報來源</span>
+              <h2 className='text-2xl font-medium text-white'>
+                {record.source.name}
               </h2>
             </div>
           </div>
         </div>
         <section className='container mx-auto max-w-5xl py-10'>
           <div className='space-y-2'>
-            <h3 className='text-xl font-semibold text-primary'>網站描述</h3>
+            <h3 className='text-xl font-semibold text-primary'>風險網站描述</h3>
             <p>
               通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源
             </p>

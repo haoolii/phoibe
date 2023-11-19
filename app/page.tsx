@@ -1,13 +1,21 @@
 import { LatestRecords } from '@/features/record/components/LatestRecords';
+import { SearchPanel } from '@/features/record/components/SearchPanel';
+import { Statistics } from '@/features/record/components/Statistics';
 
 export default function Home() {
   return (
     <div>
-      <div
-        className={`flex h-[300px] items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}
-      ></div>
-      <section className='container flex max-w-4xl flex-col items-center gap-10 py-16'>
-        
+      <section
+        className={`flex items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-32 md:pt-22 pb-16 transition-all`}
+      >
+        <SearchPanel />
+      </section>
+      <section className="bg-secondary">
+        <div className='container flex max-w-4xl flex-col items-center gap-10 py-8'>
+          <Statistics />
+        </div>
+      </section>
+      <section className='container flex max-w-4xl flex-col items-center gap-10 pt-4 md:pt-12 pb-16'>
           <div className='flex w-full justify-center md:min-h-[600px]'>
             <LatestRecords />
           </div>

@@ -1,3 +1,6 @@
+import Axios from 'axios';
+import { buildWebStorage, setupCache } from 'axios-cache-interceptor';
+
 export const API = {
   GET_CONFIG: '/api/config',
   GET_RECORDS: '/api/records',
@@ -18,3 +21,11 @@ export const createAPI = (
 ) => {
   return url.replace(/\{\{(\w+)\}\}/g, (match, p1) => pathParams[p1]);
 };
+
+export const cacheAxios = setupCache(Axios, {
+  storage:
+    typeof window !== 'undefined'
+      ? buildWebStorage(localStorage, 'axios-cache:')
+      : undefined,
+  ttl: 1000 * 2,
+});

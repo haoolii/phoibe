@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { cacheAxios as axios } from '../apis';
 
 import {
   API,
@@ -41,6 +41,9 @@ export const getRecords = async ({
   url,
 }: GetRecordsProps): Promise<APIResponse<GetRecordsResponse>> => {
   const apiUrl = createAPI(API.GET_RECORDS);
+  console.log('skip', skip)
+  console.log('take', take)
+  console.log('url', url)
   return await axios
     .request({
       url: `${process.env.PHOIBE_API}${apiUrl}`,

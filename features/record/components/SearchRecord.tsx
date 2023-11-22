@@ -55,7 +55,7 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
 
   useEffect(() => {
     loadData();
-  }, [pageIndex, pageSize, search]);
+  }, [loadData]);
 
   const selectText = useCallback((text: string, targetText: string) => {
     let targetIndex = text.indexOf(targetText);
@@ -74,7 +74,7 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
       <span>
         {output.map((text) => {
           if (text === targetText) {
-            return <b className='text-primary'>{text}</b>;
+            return <b key={text} className='text-primary'>{text}</b>;
           } else {
             return text;
           }

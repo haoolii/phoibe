@@ -30,6 +30,7 @@ export const getComments = async ({
         skip,
         take
       },
+      cache: false
     })
     .then((response) => {
       return response.data;

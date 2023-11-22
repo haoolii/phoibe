@@ -1,20 +1,8 @@
-import { BaseLayout } from '@/components/layout';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Textarea } from '@/components/ui/textarea';
-import { RecordComments } from '@/features/record/components/RecordComments';
-import db from '@/lib/db';
-import { CaretLeftIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import db from '@/lib/db';
+import { RecordComments } from '@/features/record/components/RecordComments';
+import { Button } from '@/components/ui/button';
+import { CaretLeftIcon } from '@radix-ui/react-icons';
 
 export default async function RecordDetail({
   params,
@@ -39,28 +27,9 @@ export default async function RecordDetail({
     return (
       <div>
         <div
-          className={`flex min-h-[300px] items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-10 pt-20 transition-all`}
+          className={`flex min-h-[300px] flex-col justify-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-10 pt-20 transition-all`}
         >
           <div className='container mx-auto max-w-5xl space-y-6'>
-            {search === undefined ? (
-              <Link href='/'>
-                <Button variant='link' className='text-white flex space-x-2 p-0'>
-                  <CaretLeftIcon />
-                  <span>
-                    返回
-                  </span>
-                </Button>
-              </Link>
-            ) : (
-              <Link href={{ pathname: '/record', query: { search } }}>
-                  <Button variant='link' className='text-white flex space-x-2 p-0'>
-                  <CaretLeftIcon />
-                  <span>
-                    返回
-                  </span>
-                </Button>
-              </Link>
-            )}
             <div className='flex flex-col space-y-2'>
               <span className='text-white opacity-75'>網站名稱</span>
               <h2 className='text-2xl font-medium text-white'>
@@ -80,11 +49,32 @@ export default async function RecordDetail({
           </div>
         </div>
         <section className='container mx-auto max-w-5xl py-10'>
+          <div className='mb-4 inline-block'>
+            {search === undefined ? (
+              <Link href='/'>
+                <Button
+                  variant='link'
+                  className='flex space-x-2 p-0 text-primary'
+                >
+                  <CaretLeftIcon />
+                  <span>返回</span>
+                </Button>
+              </Link>
+            ) : (
+              <Link href={{ pathname: '/record', query: { search } }}>
+                <Button
+                  variant='link'
+                  className='flex space-x-2 p-0 text-primary'
+                >
+                  <CaretLeftIcon />
+                  <span>返回</span>
+                </Button>
+              </Link>
+            )}
+          </div>
           <div className='space-y-2'>
             <h3 className='text-xl font-semibold text-primary'>風險網站描述</h3>
-            <p>
-              通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源通報來源
-            </p>
+            <p>{record.description}</p>
           </div>
         </section>
 

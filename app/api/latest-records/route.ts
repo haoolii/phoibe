@@ -10,7 +10,6 @@ export const dynamic = 'force-dynamic';
 
 export const GET = async (request: NextRequest) => {
   try {
-    console.log('GETTT')
     const records = await db.record.findMany({
       orderBy: [
         {

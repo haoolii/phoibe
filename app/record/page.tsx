@@ -7,7 +7,7 @@ export default function Record({
 }: {
   searchParams: { search: string };
 }) {
-    const search = decodeURI(searchParams.search);
+  const search = decodeURI(searchParams.search);
   return (
     <div>
       <section

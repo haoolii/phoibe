@@ -27,6 +27,7 @@ export interface Record {
     message: string
     record: Record;
     recordId: string;
+    commentIP: string;
     published: boolean;
     deleted: boolean
     createdAt: string

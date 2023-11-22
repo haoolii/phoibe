@@ -48,12 +48,14 @@ export const POST = async (
   { params }: { params: { id: string } }
 ) => {
   try {
+    const forwardedFor = request.headers.get("x-forwarded-for");
     const id = params.id;
     const { message } = await request.json();
     const comment = await db.comment.create({
       data: {
         recordId: id,
         message,
+        commentIP: forwardedFor,
         deleted: false,
         published: true,
       },

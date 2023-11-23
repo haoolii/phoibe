@@ -7,7 +7,7 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-model config {
+model Config {
   id             String   @id @default(uuid())
   enable         Boolean  @default(false)
   title          String
@@ -34,7 +34,11 @@ model Record {
   updatedAt   DateTime  @updatedAt()
   description String?
   reportIP    String?
+  syncLogId   String?
+  syncLog     SyncLog? @relation(fields: [syncLogId], references: [id])
   comments    Comment[]
+
+  @@unique([websiteName, url])
 }
 
 model Source {
@@ -44,6 +48,7 @@ model Source {
   deleted     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
+  syncLogs    SyncLog[]
   records     Record[]
 }
 
@@ -55,6 +60,15 @@ model Comment {
   record    Record   @relation(fields: [recordId], references: [id])
   recordId  String
   commentIP String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model SyncLog {
+  id        String   @id @default(uuid())
+  sourceId  String
+  source    Source @relation(fields: [sourceId], references: [id])
+  records   Record[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 }

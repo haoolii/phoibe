@@ -39,6 +39,7 @@ export const ReportBoard = () => {
     const response = await postReport({
       websiteName: values.websiteName,
       url: values.url,
+      description: values.description
     });
 
     router.replace('/');

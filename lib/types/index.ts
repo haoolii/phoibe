@@ -1,15 +1,9 @@
-export interface Config {
-    id: string;
-    enable: boolean;
-    title: string;
-    title_en: string;
-    description: string;
-    description_en: string;
-    syncDataAt: string;
-    checkDataAt: string;
-    createdAt: string;
-    updatedAt: string;
+export interface Common {
+   searchCounts: number;
+  initiativeReportCounts: number;
+  recordCounts: number;
 }
+
 export interface Record {
     id: string;
     websiteName: string;

@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { buildWebStorage, setupCache } from 'axios-cache-interceptor';
 
 export const API = {
-  GET_CONFIG: '/api/config',
+  GET_COMMON: '/api/common',
   GET_RECORDS: '/api/records',
   GET_LATEST_RECORDS: '/api/latest-records',
   GET_RECORD: '/api/records/{{id}}',
@@ -29,3 +29,5 @@ export const cacheAxios = setupCache(Axios.create(), {
       : undefined,
   ttl: 1000 * 60,
 });
+
+export const defaultAxios = setupCache(Axios.create());

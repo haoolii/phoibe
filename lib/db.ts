@@ -14,4 +14,5 @@ const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
 
 export default prisma
 
+console.log('prisma.$connect', prisma.$connect)
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

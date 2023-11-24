@@ -1,6 +1,5 @@
 'use client';
 
-import { Skeleton } from '@/components/ui/skeleton';
 import { getRecords } from '@/lib/requests/report.request';
 import { useCallback, useEffect, useState } from 'react';
 import { Record } from '@/lib/types';

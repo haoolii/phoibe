@@ -2,15 +2,24 @@ import { ResponseCode } from '@/lib/constants/response-code';
 import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
 import db from '@/lib/db';
-
-export const dynamic = 'force-dynamic';
+import { logger } from '@/lib/log';
 
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url || '');
-    const skip = +(searchParams.get('skip') || 0);
-    const take = +(searchParams.get('take') || 20);
+    const limit = 50;
+    const rSkip = +(searchParams.get('skip') || 0);
+    const rTake = +(searchParams.get('take') || 10);
+    const take = rTake >= 10 ? 10 : rTake;
+    const skip = (rSkip + take) >= limit ? limit : rSkip;
     const url = searchParams.get('url') || '';
+    if (url.length < 3) {
+      return NextResponse.json({
+        msg: 'Search URL too short',
+        data: null,
+        code: ResponseCode.FAIL,
+      });
+    }
     const [totalCount, records] = await db.$transaction([
       db.record.count({
         where: {
@@ -31,7 +40,7 @@ export const GET = async (request: NextRequest) => {
           source: true,
         },
         skip,
-        take: take > 20 ? 20 : take,
+        take,
         where: {
           url: {
             contains: url,
@@ -41,11 +50,15 @@ export const GET = async (request: NextRequest) => {
         },
       }),
     ]);
+
+    logger('search', searchParams.toString());
+
     return NextResponse.json({
       msg: '',
       data: {
         records,
-        totalCount,
+        totalCount: totalCount >= limit ? limit : totalCount,
+        exceedLimit: totalCount >= limit
       },
       code: ResponseCode.OK,
     });

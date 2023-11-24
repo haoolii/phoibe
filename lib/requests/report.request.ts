@@ -1,4 +1,4 @@
-import { cacheAxios as axios } from '../apis';
+import { defaultAxios as axios } from '../apis';
 
 import {
   API,
@@ -59,9 +59,10 @@ export const getRecords = async ({
 export type PostReportProps = {
   websiteName: string;
   url: string;
+  description: string;
 };
 
-export const postReport = async ({ websiteName, url }: PostReportProps) => {
+export const postReport = async ({ websiteName, url, description }: PostReportProps) => {
   const apiUrl = createAPI(API.POST_REPORT);
   return await axios
     .request({
@@ -70,6 +71,7 @@ export const postReport = async ({ websiteName, url }: PostReportProps) => {
       data: {
         websiteName,
         url,
+        description
       },
     })
     .then((response) => {

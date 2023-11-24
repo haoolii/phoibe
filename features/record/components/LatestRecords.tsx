@@ -60,9 +60,9 @@ export const LatestRecords = () => {
     console.log(output);
     return (
       <span>
-        {output.map((text) => {
+        {output.map((text, i) => {
           if (text === targetText) {
-            return <b className='text-primary'>{text}</b>;
+            return <b key={`${text}_${i}`} className='text-primary'>{text}</b>;
           } else {
             return text;
           }

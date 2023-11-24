@@ -42,7 +42,7 @@ export const SearchPanel = () => {
             type='submit'
             variant='secondary'
             className='w-full px-10 font-bold text-primary ring-offset-0 transition-all hover:text-primary focus-visible:ring-0 focus-visible:ring-offset-0 active:bg-white'
-            disabled={!input || loading}
+            disabled={!input || (input.length < 3) || loading}
           >
             搜尋
           </Button>

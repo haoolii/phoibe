@@ -6,6 +6,7 @@ export type PaginationProps = {
     onPageIndexChange?: (index: number) => void;
     onPageSizeChange?: (size: number) => void;
     total: number;
+    disabled?: boolean;
 }
 
 export type PaginationItem = {
@@ -19,4 +20,5 @@ export type PaginationActionProps = {
     currentIndex?: number;
     onClick?: () => void;
     item: Partial<PaginationItem>;
+    disabled?: boolean
 }

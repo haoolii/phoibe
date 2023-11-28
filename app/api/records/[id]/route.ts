@@ -1,8 +1,6 @@
 import { ResponseCode } from '@/lib/constants/response-code';
-import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
+import db from '@/lib/db';
 
 export const GET = async (
   request: NextRequest,
@@ -10,7 +8,7 @@ export const GET = async (
 ) => {
   try {
     const id = params.id;
-    const record = await prisma.record.findFirst({
+    const record = await db.record.findFirst({
       include: {
         source: true,
         comments: true

@@ -2,7 +2,8 @@
 
 ### API
 - `GET /api/config`
-- `GET /api/records`
+- `GET /api/records` 
+- `GET /api/latest-record`
 - `GET /api/records/{id}`
   
 - `POST /api/report`
@@ -11,10 +12,8 @@
 - `POST /api/records/{id}/comments`
 
 <!-- Internal -->
-
 - `GET /api/internal/config`
 - `POST /api/internal/config`
-- `PUT /api/internal/config`
 
 - `GET /api/internal/report/{id}`
 - `PUT /api/internal/report/{id}`

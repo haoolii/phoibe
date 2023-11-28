@@ -1,20 +1,27 @@
 import { ResponseCode } from '@/lib/constants/response-code';
-import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
-
-const prisma = new PrismaClient();
-
-export const dynamic = 'force-dynamic';
+import db from '@/lib/db';
+import { logger } from '@/lib/log';
 
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url || '');
-    const skip = +(searchParams.get('skip') || 0);
-    const take = +(searchParams.get('take') || 20);
+    const limit = 50;
+    const rSkip = +(searchParams.get('skip') || 0);
+    const rTake = +(searchParams.get('take') || 10);
+    const take = rTake >= 10 ? 10 : rTake;
+    const skip = (rSkip + take) >= limit ? limit : rSkip;
     const url = searchParams.get('url') || '';
-    const [totalCount, records] = await prisma.$transaction([
-      prisma.record.count({
+    if (url.length < 3) {
+      return NextResponse.json({
+        msg: 'Search URL too short',
+        data: null,
+        code: ResponseCode.FAIL,
+      });
+    }
+    const [totalCount, records] = await db.$transaction([
+      db.record.count({
         where: {
           url: {
             contains: url,
@@ -23,7 +30,7 @@ export const GET = async (request: NextRequest) => {
           deleted: false,
         },
       }),
-      prisma.record.findMany({
+      db.record.findMany({
         orderBy: [
           {
             createdAt: 'desc',
@@ -43,11 +50,15 @@ export const GET = async (request: NextRequest) => {
         },
       }),
     ]);
+
+    logger('search', searchParams.toString());
+
     return NextResponse.json({
       msg: '',
       data: {
         records,
-        totalCount,
+        totalCount: totalCount >= limit ? limit : totalCount,
+        exceedLimit: totalCount >= limit
       },
       code: ResponseCode.OK,
     });

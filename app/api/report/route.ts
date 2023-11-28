@@ -1,8 +1,6 @@
 import { ResponseCode } from '@/lib/constants/response-code';
-import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
+import db from '@/lib/db';
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -16,13 +14,13 @@ export const POST = async (request: NextRequest) => {
       });
     }
 
-    let source = await prisma.source.findFirst({
+    let source = await db.source.findFirst({
       where: {
         name: 'Report',
       },
     });
     if (!source) {
-      source = await prisma.source.create({
+      source = await db.source.create({
         data: {
           name: 'Report',
           description: 'Report',
@@ -30,7 +28,7 @@ export const POST = async (request: NextRequest) => {
       });
     }
 
-    const record = await prisma.record.create({
+    const record = await db.record.create({
       data: {
         websiteName,
         url,

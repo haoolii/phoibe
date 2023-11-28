@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { createAPI, API } from '../apis';
-import { Record } from '../types';
-import getConfig from 'next/config';
+import { defaultAxios as axios } from '../apis';
 
-export type APIResponse<T> = {
-  code: number;
-  data: T;
-  msg: string;
-};
+import {
+  API,
+  createAPI,
+} from '../apis';
+import {
+  APIResponse,
+  Record,
+} from '../types';
 
 export type GetRecordsProps = {
   skip: number;
@@ -18,6 +18,21 @@ export type GetRecordsProps = {
 export type GetRecordsResponse = {
   records: Record[];
   totalCount: number;
+};
+
+export const getLatestRecords = async (): Promise<
+  APIResponse<GetRecordsResponse>
+> => {
+  const apiUrl = createAPI(API.GET_LATEST_RECORDS);
+  return await axios
+    .request({
+      url: `${process.env.PHOIBE_API}${apiUrl}`,
+      method: 'get'
+    })
+    .then((response) => {
+      console.log(response)
+      return response.data;
+    });
 };
 
 export const getRecords = async ({
@@ -34,6 +49,29 @@ export const getRecords = async ({
         skip,
         take,
         url,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
+
+export type PostReportProps = {
+  websiteName: string;
+  url: string;
+  description: string;
+};
+
+export const postReport = async ({ websiteName, url, description }: PostReportProps) => {
+  const apiUrl = createAPI(API.POST_REPORT);
+  return await axios
+    .request({
+      url: `${process.env.PHOIBE_API}${apiUrl}`,
+      method: 'post',
+      data: {
+        websiteName,
+        url,
+        description
       },
     })
     .then((response) => {

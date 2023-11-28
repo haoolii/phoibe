@@ -1,17 +1,23 @@
 import { CookieIcon } from '@radix-ui/react-icons';
 import { Badge } from './ui/badge';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const SiteHeader = () => {
   return (
     <div className='absolute top-0 w-full'>
-      <div className='container mx-auto py-4 flex justify-between'>
+      <div className='container mx-auto flex justify-between py-4'>
         <div>
-            <CookieIcon className='text-white w-6 h-6 ' />
+          <Link href={`/`}>
+            <Image src={'/logo_w.png'} width={40} height={40} alt="Logo" />
+          </Link>
         </div>
         <div>
-            <a href='#'>
-                <Badge className="font-thin bg-black bg-opacity-75 text-xs px-3 py-1">回報中心</Badge>
-            </a>
+          <Link href={`/report`}>
+            <Badge className='bg-black bg-opacity-75 px-3 py-1 text-xs font-thin'>
+              回報中心
+            </Badge>
+          </Link>
         </div>
       </div>
     </div>

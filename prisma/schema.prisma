@@ -4,11 +4,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_DB_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_DB_URL_NON_POOLING") // uses a direct connection
+  url = env("DATABASE_URL")
 }
 
-model config {
+model Config {
   id             String   @id @default(uuid())
   enable         Boolean  @default(false)
   title          String
@@ -33,7 +32,13 @@ model Record {
   deleted     Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt()
+  description String?
+  reportIP    String?
+  syncLogId   String?
+  syncLog     SyncLog? @relation(fields: [syncLogId], references: [id])
   comments    Comment[]
+
+  @@unique([websiteName, url])
 }
 
 model Source {
@@ -43,7 +48,8 @@ model Source {
   deleted     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
-  records      Record[]
+  syncLogs    SyncLog[]
+  records     Record[]
 }
 
 model Comment {
@@ -53,6 +59,24 @@ model Comment {
   deleted   Boolean  @default(false)
   record    Record   @relation(fields: [recordId], references: [id])
   recordId  String
+  commentIP String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model SyncLog {
+  id        String   @id @default(uuid())
+  sourceId  String
+  source    Source @relation(fields: [sourceId], references: [id])
+  records   Record[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  type      String
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 }

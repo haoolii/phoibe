@@ -15,8 +15,10 @@ import { Badge } from '@/components/ui/badge';
 import { Pagination } from '@/components/pagination';
 import { getRecords } from '@/lib/requests/report.request';
 import { Record } from '@/lib/types';
-import { CookieIcon } from '@radix-ui/react-icons';
+import { CookieIcon, CaretRightIcon } from '@radix-ui/react-icons';
 import { useDebounce } from '@react-hook/debounce';
+import Link from 'next/link';
+import { NoData } from '@/components/no-data';
 
 export const WebSiteBoard = () => {
   const [records, setRecords] = useState<Record[]>([]);
@@ -52,7 +54,11 @@ export const WebSiteBoard = () => {
 
   return (
     <div className=''>
-      <div className={`flex ${url ? 'h-[300px]' : 'h-[500px]'} items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}>
+      <div
+        className={`flex ${
+          url ? 'h-[300px]' : 'h-[500px]'
+        } items-center banner_bg pt-20 transition-all`}
+      >
         {url ? (
           <div className='container mx-auto flex max-w-3xl flex-col'>
             <div className='flex flex-col items-center gap-8'>
@@ -121,10 +127,10 @@ export const WebSiteBoard = () => {
           {!url && (
             <h3 className='text-xl text-primary'>{`最新風險、詐騙網址`}</h3>
           )}
-          <div className='flex md:min-h-[600px] w-full justify-center'>
+          <div className='flex w-full justify-center md:min-h-[600px]'>
             {loading ? (
               <CookieIcon className='animate-infinite animate-ease-out my-20 h-20 w-20 animate-ping text-primary' />
-            ) : (
+            ) : records.length ? (
               <>
                 <Table>
                   <TableHeader>
@@ -142,14 +148,24 @@ export const WebSiteBoard = () => {
                         <TableCell>
                           <Badge>{record.source?.name || '???'}</Badge>
                         </TableCell>
+                        <TableCell className='p-0'>
+                          <Link href={`/record/${record.id}`} scroll={true}>
+                            <Button variant='ghost' className=''>
+                              <CaretRightIcon className='text-primary' />
+                            </Button>
+                          </Link>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </>
+            ) : (
+              <NoData title={`未搜尋到 ${url}`} />
             )}
           </div>
           <Pagination
+            disabled={loading}
             pageIndex={pageIndex + 1}
             pageSize={pageSize}
             total={totalCount}
@@ -159,33 +175,6 @@ export const WebSiteBoard = () => {
           />
         </div>
       </section>
-      {/* <section>
-        <div className='container max-w-4xl py-20 flex flex-col items-center gap-10'>
-          <h3 className="text-primary text-xl">最新回報</h3>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>網站名稱</TableHead>
-                <TableHead>網址</TableHead>
-                <TableHead>來源</TableHead>
-                <TableHead className='text-right'>回報數</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.records.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell>{record.websiteName}</TableCell>
-                  <TableCell>{record.url}</TableCell>
-                  <TableCell><Badge>{record.source.name}</Badge></TableCell>
-                  <TableCell>
-
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </section> */}
     </div>
   );
 };

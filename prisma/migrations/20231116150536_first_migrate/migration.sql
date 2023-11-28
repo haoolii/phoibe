@@ -49,6 +49,7 @@ CREATE TABLE "Comment" (
     "published" BOOLEAN NOT NULL,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "recordId" TEXT NOT NULL,
+    "commentIP" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

@@ -11,7 +11,7 @@ export default function Record({
   return (
     <div>
       <section
-        className={`md:pt-22 flex items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-16 pt-32 transition-all`}
+        className={`md:pt-22 flex items-center banner_bg pb-16 pt-32 transition-all`}
       >
         <div className='container mx-auto flex max-w-3xl flex-col'>
           <div className='flex flex-col items-center gap-8'>

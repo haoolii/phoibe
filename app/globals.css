@@ -61,3 +61,27 @@
     @apply bg-background text-foreground;
   }
 }
+.banner_bg {
+  background: rgba(254,17,73,1);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+@media screen(md) {
+  .banner_bg {
+    background: url('../public/img/kv-2.jpg'), rgba(254,17,73,1);
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+}
+
+@media screen(xl) {
+  .banner_bg {
+    background: url('../public/img/kv-2.jpg'), rgba(254,17,73,1);
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+}
+
+
+

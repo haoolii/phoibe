@@ -48,7 +48,7 @@ export const ReportBoard = () => {
   return (
     <div>
       <div
-        className={`flex h-[300px] items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}
+        className={`flex h-[300px] items-center banner_bg pt-20 transition-all`}
       >
         <div className='container text-center'>
           <h1 className='text-3xl text-white'>回報中心</h1>

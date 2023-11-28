@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <section
-        className={`flex items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-32 md:pt-22 pb-16 transition-all`}
+        className={`flex items-center banner_bg pt-32 md:pt-22 pb-16 transition-all`}
       >
         <SearchPanel />
       </section>

@@ -57,7 +57,7 @@ export const WebSiteBoard = () => {
       <div
         className={`flex ${
           url ? 'h-[300px]' : 'h-[500px]'
-        } items-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pt-20 transition-all`}
+        } items-center banner_bg pt-20 transition-all`}
       >
         {url ? (
           <div className='container mx-auto flex max-w-3xl flex-col'>

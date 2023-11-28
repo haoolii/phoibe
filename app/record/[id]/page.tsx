@@ -27,7 +27,7 @@ export default async function RecordDetail({
     return (
       <div>
         <div
-          className={`flex min-h-[300px] flex-col justify-center bg-[url('/img/dapp_banner_bg.png')] bg-cover pb-10 pt-20 transition-all`}
+          className={`flex min-h-[300px] flex-col justify-center banner_bg pb-10 pt-20 transition-all`}
         >
           <div className='container mx-auto max-w-5xl space-y-6'>
             <div className='flex flex-col space-y-2'>

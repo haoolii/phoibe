@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { SearchRecord } from '@/features/record/components/SearchRecord';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic'
+
 export default function Record({
   searchParams,
 }: {

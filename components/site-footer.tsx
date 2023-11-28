@@ -1,16 +1,19 @@
 import {
-  CookieIcon,
   TwitterLogoIcon,
   DiscordLogoIcon,
   InstagramLogoIcon,
 } from '@radix-ui/react-icons';
 import { Button } from './ui/button';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const SiteFooter = () => (
   <div className=' bg-secondary'>
     <div className='container mx-auto flex items-center justify-between py-8'>
       <div>
-        <CookieIcon className='h-8 w-8 text-primary' />
+        <Link href={`/`}>
+          <Image src={'/logo-primary.svg'} width={40} height={40} alt='Logo' />
+        </Link>
       </div>
       <div className='flex items-center'>
         <Button variant='link' className='text-primary'>

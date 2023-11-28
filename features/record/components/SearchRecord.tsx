@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { CaretRightIcon } from '@radix-ui/react-icons';
+import { CaretRightIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Pagination } from '@/components/pagination';
 
 type SearchRecordProps = {
@@ -69,10 +69,14 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
     }
     output.push(subStr);
     return (
-      <span className="break-all">
+      <span className='break-all'>
         {output.map((text) => {
           if (text === targetText) {
-            return <b key={text} className='text-primary'>{text}</b>;
+            return (
+              <b key={text} className='text-primary'>
+                {text}
+              </b>
+            );
           } else {
             return text;
           }
@@ -82,68 +86,100 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
   }, []);
   return (
     <div className='flex w-full flex-col items-center  md:min-h-[600px]'>
-      <div className='flex w-full flex-col space-y-4 pt-4 md:hidden'>
-        {records.map((record) => {
-          return (
-            <Card className='w-full' key={record.id}>
-              <CardHeader className='p-4 pb-2'>
-                <CardTitle className='text-base font-normal'>
-                  {record.websiteName}
-                </CardTitle>
-                <CardDescription>{selectText(record.url, search)}</CardDescription>
-              </CardHeader>
-              <CardFooter className='flex items-center justify-between p-4 pt-0'>
-                <Badge>{record.source?.name || '???'}</Badge>
-                <Link href={`/record/${record.id}?${encodeURI(`search=${search}`)}`} scroll={true}>
-                  <Button size='sm' variant='secondary'>
-                    詳細資訊
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          );
-        })}
-      </div>
-      <Table className='mt-2 hidden md:table'>
-        <TableHeader>
-          <TableRow>
-            <TableHead>網站名稱</TableHead>
-            <TableHead>網址</TableHead>
-            <TableHead>來源</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {records.map((record) => (
-            <TableRow key={record.id}>
-              <TableCell width={280}>{record.websiteName}</TableCell>
-              <TableCell>{selectText(record.url, search)}</TableCell>
-              <TableCell>
-                <Badge>{record.source?.name || '???'}</Badge>
-              </TableCell>
-              <TableCell className='p-0'>
-                <Link href={`/record/${record.id}?${encodeURI(`search=${search}`)}`} scroll={true}>
-                  <Button variant='ghost' className=''>
-                    <CaretRightIcon className='text-primary' />
-                  </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className='py-8'>
-        <Pagination
-          disabled={loading}
-          pageIndex={pageIndex + 1}
-          pageSize={pageSize}
-          total={totalCount}
-          onPageIndexChange={(index) => {
-            console.log('index', index);
-            setPageIndex(index - 1);
-          }}
-        />
-      </div>
+      {totalCount === 0 && !loading ? (
+        <div className='py-10 space-y-4'>
+          <div className='flex flex-col items-center justify-center space-y-2'>
+            <MagnifyingGlassIcon className='h-14 w-14 text-gray-400' />
+            <h4 className='text-center text-xl font-bold text-gray-400'>
+              未找到相關結果
+            </h4>
+          </div>
+          <div>
+            <Link href="/report">
+              <h4 className='text-center text-xl font-bold text-primary hover:underline underline-offset-4'>
+                點此協助回報此網址
+              </h4>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className='flex w-full flex-col space-y-4 pt-4 md:hidden'>
+            {records.map((record) => {
+              return (
+                <Card className='w-full' key={record.id}>
+                  <CardHeader className='p-4 pb-2'>
+                    <CardTitle className='text-base font-normal'>
+                      {record.websiteName}
+                    </CardTitle>
+                    <CardDescription>
+                      {selectText(record.url, search)}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter className='flex items-center justify-between p-4 pt-0'>
+                    <Badge>{record.source?.name || '???'}</Badge>
+                    <Link
+                      href={`/record/${record.id}?${encodeURI(
+                        `search=${search}`
+                      )}`}
+                      scroll={true}
+                    >
+                      <Button size='sm' variant='secondary'>
+                        詳細資訊
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              );
+            })}
+          </div>
+          <Table className='mt-2 hidden md:table'>
+            <TableHeader>
+              <TableRow>
+                <TableHead>網站名稱</TableHead>
+                <TableHead>網址</TableHead>
+                <TableHead>來源</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {records.map((record) => (
+                <TableRow key={record.id}>
+                  <TableCell width={280}>{record.websiteName}</TableCell>
+                  <TableCell>{selectText(record.url, search)}</TableCell>
+                  <TableCell>
+                    <Badge>{record.source?.name || '???'}</Badge>
+                  </TableCell>
+                  <TableCell className='p-0'>
+                    <Link
+                      href={`/record/${record.id}?${encodeURI(
+                        `search=${search}`
+                      )}`}
+                      scroll={true}
+                    >
+                      <Button variant='ghost' className=''>
+                        <CaretRightIcon className='text-primary' />
+                      </Button>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className='py-8'>
+            <Pagination
+              disabled={loading}
+              pageIndex={pageIndex + 1}
+              pageSize={pageSize}
+              total={totalCount}
+              onPageIndexChange={(index) => {
+                console.log('index', index);
+                setPageIndex(index - 1);
+              }}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

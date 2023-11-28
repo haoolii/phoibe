@@ -1,4 +1,3 @@
-import { CookieIcon } from '@radix-ui/react-icons';
 import { Badge } from './ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';

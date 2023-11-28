@@ -9,7 +9,7 @@ export const SiteHeader = () => {
       <div className='container mx-auto flex justify-between py-4'>
         <div>
           <Link href={`/`}>
-            <Image src={'/logo_w.png'} width={40} height={40} alt="Logo" />
+            <Image src={'/logo.svg'} width={40} height={40} alt="Logo" />
           </Link>
         </div>
         <div>

@@ -4,6 +4,8 @@ import { type NextRequest } from 'next/server';
 import db from '@/lib/db';
 import { logger } from '@/lib/log';
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url || '');

@@ -68,9 +68,8 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
       index = subStr.indexOf(targetText);
     }
     output.push(subStr);
-    console.log(output);
     return (
-      <span>
+      <span className="break-all">
         {output.map((text) => {
           if (text === targetText) {
             return <b key={text} className='text-primary'>{text}</b>;

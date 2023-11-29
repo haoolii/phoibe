@@ -1,22 +1,15 @@
 import { defaultAxios as axios } from '../apis';
 
-import {
-  API,
-  createAPI,
-} from '../apis';
-import {
-  APIResponse,
-  Record,
-} from '../types';
+import { API, createAPI } from '../apis';
+import { APIResponse, Record } from '../types';
 
 export type GetRecordsProps = {
-  skip: number;
-  take: number;
   url: string;
 };
 
 export type GetRecordsResponse = {
   records: Record[];
+  limit: number;
   totalCount: number;
 };
 
@@ -27,17 +20,15 @@ export const getLatestRecords = async (): Promise<
   return await axios
     .request({
       url: `${process.env.PHOIBE_API}${apiUrl}`,
-      method: 'get'
+      method: 'get',
     })
     .then((response) => {
-      console.log(response)
+      console.log(response);
       return response.data;
     });
 };
 
 export const getRecords = async ({
-  skip,
-  take,
   url,
 }: GetRecordsProps): Promise<APIResponse<GetRecordsResponse>> => {
   const apiUrl = createAPI(API.GET_RECORDS);
@@ -46,8 +37,6 @@ export const getRecords = async ({
       url: `${process.env.PHOIBE_API}${apiUrl}`,
       method: 'get',
       params: {
-        skip,
-        take,
         url,
       },
     })
@@ -62,7 +51,11 @@ export type PostReportProps = {
   description: string;
 };
 
-export const postReport = async ({ websiteName, url, description }: PostReportProps) => {
+export const postReport = async ({
+  websiteName,
+  url,
+  description,
+}: PostReportProps) => {
   const apiUrl = createAPI(API.POST_REPORT);
   return await axios
     .request({
@@ -71,7 +64,7 @@ export const postReport = async ({ websiteName, url, description }: PostReportPr
       data: {
         websiteName,
         url,
-        description
+        description,
       },
     })
     .then((response) => {

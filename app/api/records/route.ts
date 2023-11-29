@@ -9,11 +9,7 @@ export const dynamic = 'force-dynamic'
 export const GET = async (request: NextRequest) => {
   try {
     const { searchParams } = new URL(request.url || '');
-    const limit = 50;
-    const rSkip = +(searchParams.get('skip') || 0);
-    const rTake = +(searchParams.get('take') || 10);
-    const take = rTake >= 10 ? 10 : rTake;
-    const skip = (rSkip + take) >= limit ? limit : rSkip;
+    const limit = 20;
     const url = searchParams.get('url') || '';
     if (url.length < 3) {
       return NextResponse.json({
@@ -41,8 +37,8 @@ export const GET = async (request: NextRequest) => {
         include: {
           source: true,
         },
-        skip,
-        take,
+        skip: 0,
+        take: limit,
         where: {
           url: {
             contains: url,
@@ -59,8 +55,8 @@ export const GET = async (request: NextRequest) => {
       msg: '',
       data: {
         records,
-        totalCount: totalCount >= limit ? limit : totalCount,
-        exceedLimit: totalCount >= limit
+        limit,
+        totalCount
       },
       code: ResponseCode.OK,
     });

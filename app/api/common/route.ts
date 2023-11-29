@@ -2,13 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { ResponseCode } from '@/lib/constants/response-code';
 import db from '@/lib/db';
 
-/*
-{
-  searchCounts: 0,
-  initiativeReportCounts: 0,
-  recordCounts: 0
-}
-*/
+
 export const GET = async (request: NextRequest) => {
   try {
     const config = await db.config.findFirst();

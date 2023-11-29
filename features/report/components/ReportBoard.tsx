@@ -21,7 +21,7 @@ import * as z from 'zod';
 const formSchema = z.object({
   websiteName: z.string().min(1, '此為必填欄位').max(200, '超過字數上限'),
   url: z.string().min(1, '此為必填欄位').max(300, '超過字數上限'),
-  description: z.string().max(300),
+  description: z.string().max(200),
 });
 
 export const ReportBoard = () => {
@@ -91,9 +91,9 @@ export const ReportBoard = () => {
                 name='description'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>描述</FormLabel>
+                    <FormLabel>描述(上限 200 字)</FormLabel>
                     <FormControl>
-                      <Textarea placeholder='描述' {...field} />
+                      <Textarea placeholder='描述' {...field} maxLength={200}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

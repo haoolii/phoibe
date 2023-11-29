@@ -51,6 +51,13 @@ export const POST = async (
     const forwardedFor = request.headers.get("x-forwarded-for");
     const id = params.id;
     const { message } = await request.json();
+    if (message.length > 100) {
+      return NextResponse.json({
+        data: null,
+        msg: 'Message too long',
+        code: ResponseCode.ERROR,
+      });
+    };
     const comment = await db.comment.create({
       data: {
         recordId: id,

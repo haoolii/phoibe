@@ -3,6 +3,7 @@ import db from '@/lib/db';
 import { RecordComments } from '@/features/record/components/RecordComments';
 import { Button } from '@/components/ui/button';
 import { CaretLeftIcon } from '@radix-ui/react-icons';
+import { NoData } from '@/components/noData';
 
 export default async function RecordDetail({
   params,
@@ -27,7 +28,7 @@ export default async function RecordDetail({
     return (
       <div>
         <div
-          className={`flex min-h-[300px] flex-col justify-center banner_bg pb-10 pt-20 transition-all`}
+          className={`banner_bg flex min-h-[300px] flex-col justify-center pb-10 pt-20 transition-all`}
         >
           <div className='container mx-auto max-w-5xl space-y-6'>
             <div className='flex flex-col space-y-2'>
@@ -74,7 +75,9 @@ export default async function RecordDetail({
           </div>
           <div className='space-y-2'>
             <h3 className='text-xl font-semibold text-primary'>風險網站描述</h3>
-            <p>{record.description}</p>
+            {record.description ? <p>{record.description}</p> : <div className='py-2'>
+            <NoData title='暫無此網站描述' />
+            </div>}
           </div>
         </section>
 

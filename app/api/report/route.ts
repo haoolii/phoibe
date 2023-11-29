@@ -4,9 +4,10 @@ import db from '@/lib/db';
 
 export const POST = async (request: NextRequest) => {
   try {
-    const { websiteName, url } = await request.json();
+    const { websiteName, url, description } = await request.json();
 
-    if (!websiteName || !url) {
+
+    if (!websiteName || !url ||description?.length > 200) {
       return NextResponse.json({
         msg: 'Fail',
         data: null,
@@ -32,6 +33,7 @@ export const POST = async (request: NextRequest) => {
       data: {
         websiteName,
         url,
+        description,
         originId: '',
         count: 0,
         sourceId: source.id,

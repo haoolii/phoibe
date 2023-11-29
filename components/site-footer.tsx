@@ -12,14 +12,14 @@ export const SiteFooter = () => (
     <div className='container mx-auto flex items-center justify-between py-8'>
       <div>
         <Link href={`/`}>
-          <Image src={'/logo-primary.svg'} width={40} height={40} alt='Logo' />
+          <Image src={'/logo-primary.svg'} width={32} height={32} alt='Logo' />
         </Link>
       </div>
       <div className='flex items-center'>
         <Button variant='link' className='text-primary'>
           聯繫我們
         </Button>
-        <Button variant='link' className='p-2 text-primary'>
+        {/* <Button variant='link' className='p-2 text-primary'>
           <TwitterLogoIcon className=' text-primary' />
         </Button>
         <Button variant='link' className='p-2 text-primary'>
@@ -27,7 +27,7 @@ export const SiteFooter = () => (
         </Button>
         <Button variant='link' className='p-2 text-primary'>
           <InstagramLogoIcon className=' text-primary' />
-        </Button>
+        </Button> */}
       </div>
     </div>
   </div>

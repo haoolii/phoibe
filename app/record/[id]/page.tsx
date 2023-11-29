@@ -75,7 +75,7 @@ export default async function RecordDetail({
           </div>
           <div className='space-y-2'>
             <h3 className='text-xl font-semibold text-primary'>風險網站描述</h3>
-            {record.description ? <p>{record.description}</p> : <div className='py-2'>
+            {record.description ? <p>{record.description}</p> : <div className='pt-4'>
             <NoData title='暫無此網站描述' />
             </div>}
           </div>
@@ -84,7 +84,7 @@ export default async function RecordDetail({
         <section className='container mx-auto max-w-5xl py-10'>
           <div>
             <RecordComments recordId={record.id} />
-          </div>
+          </div>  
         </section>
       </div>
     );

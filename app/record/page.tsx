@@ -9,7 +9,7 @@ export default function Record({
   searchParams: { search: string };
 }) {
   try {
-    const search = decodeURI(searchParams?.search);
+    const search = decodeURIComponent(searchParams?.search);
     return (
       <div>
         <section
@@ -17,9 +17,17 @@ export default function Record({
         >
           <div className='container mx-auto flex max-w-3xl flex-col'>
             <div className='flex flex-col items-center gap-8'>
-              <h3 className='text-xl text-white'>
-                {`風險、詐騙網址 "${search}" 搜尋結果`}
-              </h3>
+              <div className='flex flex-col items-center space-y-2'>
+                <h3 className='text-xl text-white'>
+                風險、詐騙網址
+                </h3>
+                <h3 className='text-xl text-white break-all text-center'>
+                  {`${search}`}
+                </h3>
+                <h3 className='text-xl text-white'>
+                搜尋結果
+                </h3>
+              </div>
               <Link href='/' scroll={false}>
                 <Button variant='outline' className='text-primary'>
                   重新搜尋

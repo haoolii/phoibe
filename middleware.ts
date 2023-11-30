@@ -24,6 +24,7 @@ const corsOptions: {
 // ========================================================
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+  console.log('process.env', process.env)
   // Response
   const response = NextResponse.next();
 

@@ -4,6 +4,7 @@ import './globals.css';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import Script from 'next/script'
+import GoogleCaptchaWrapper from '@/components/google-captcha-wrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className='relative flex min-h-screen flex-col'>
           <SiteHeader />
-          <div className='flex-1'>{children}</div>
+          <GoogleCaptchaWrapper>
+            <div className='flex-1'>{children}</div>
+          </GoogleCaptchaWrapper>
           <SiteFooter />
         </div>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-SVYEKV4EQX" />

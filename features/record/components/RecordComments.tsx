@@ -8,6 +8,7 @@ import { Comment } from '@/lib/types/index';
 
 import { Loading } from '@/components/loading';
 import { NoData } from '@/components/noData';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 interface RecordCommentsProps {
   recordId: string;
@@ -20,7 +21,7 @@ export const RecordComments = ({ recordId }: RecordCommentsProps) => {
   const [pageSize, setPageSize] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
   const [comments, setComments] = useState<Comment[]>([]);
-
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const load = useCallback(
     async (recordId: string) => {
       setLoading(true);
@@ -41,6 +42,11 @@ export const RecordComments = ({ recordId }: RecordCommentsProps) => {
   }, [load, recordId]);
 
   const submit = async () => {
+    if (!executeRecaptcha) {
+      console.log("Execute recaptcha not available yet");
+      return;
+    }
+    // const token = await executeRecaptcha("createComment");
     const { data } = await postComment({
       recordId,
       message,

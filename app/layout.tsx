@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,6 +31,16 @@ export default function RootLayout({
           <div className='flex-1'>{children}</div>
           <SiteFooter />
         </div>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-SVYEKV4EQX" />
+          <Script id="google-analytics">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-SVYEKV4EQX');
+            `}
+          </Script>
       </body>
     </html>
   );

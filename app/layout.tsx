@@ -5,6 +5,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import Script from 'next/script'
 import GoogleCaptchaWrapper from '@/components/google-captcha-wrapper';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,15 +36,16 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-SVYEKV4EQX" />
-          <Script id="google-analytics">
-            {`
+        <Script id="google-analytics">
+          {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
               gtag('config', 'G-SVYEKV4EQX');
             `}
-          </Script>
+        </Script>
+        <Analytics />
       </body>
     </html>
   );

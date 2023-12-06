@@ -107,6 +107,7 @@ export const SearchRecord = ({ search }: SearchRecordProps) => {
             </div>
           ) : (
             <>
+              {totalCount > limit ? <h4 className="text-primary">最多僅會顯示 {limit} 筆資料，請嘗試輸入更詳細的網址</h4> : ''}
               <div className='flex w-full flex-col space-y-4 pt-4 md:hidden'>
                 {records.map((record) => {
                   return (

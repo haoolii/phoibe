@@ -32,7 +32,7 @@ export const GET = async (request: NextRequest) => {
           },
         ],
         deleted: false,
-        published: true
+        // published: true
       }
     });
     const searchCounts = await db.log.count({

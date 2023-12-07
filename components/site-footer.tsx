@@ -16,9 +16,11 @@ export const SiteFooter = () => (
         </Link>
       </div>
       <div className='flex items-center'>
-        <Button variant='link' className='text-primary'>
-          聯繫我們
-        </Button>
+        <Link href='https://forms.gle/ir5cLxNM4mTGUrY4A' target='_blank'>
+          <Button variant='link' className='text-primary'>
+            聯繫我們
+          </Button>
+        </Link>
         {/* <Button variant='link' className='p-2 text-primary'>
           <TwitterLogoIcon className=' text-primary' />
         </Button>

@@ -14,23 +14,28 @@ export const GET = async (request: NextRequest) => {
     });
     const initiativeReportCounts = await db.record.count({
       where: {
-        AND: [
-          {
-            reportIP: {
-              not: undefined
-            }
-          },
-          {
-            reportIP: {
-              not: null
-            }
-          },
-          {
-            reportIP: {
-              not: ''
-            }
-          },
-        ],
+        source: {
+          name: {
+            contains: 'Report'
+          }
+        },
+        // AND: [
+        //   {
+        //     reportIP: {
+        //       not: undefined
+        //     }
+        //   },
+        //   {
+        //     reportIP: {
+        //       not: null
+        //     }
+        //   },
+        //   {
+        //     reportIP: {
+        //       not: ''
+        //     }
+        //   },
+        // ],
         deleted: false,
         // published: true
       }

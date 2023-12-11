@@ -1,0 +1,6 @@
+# robots.txt for https://www.safeus.cc
+
+User-agent: *
+Disallow:
+
+Sitemap: https://www.safeus.cc/sitemap.xml

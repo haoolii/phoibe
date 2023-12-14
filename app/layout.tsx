@@ -19,7 +19,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: '查網站-風險詐騙網站查詢',
   description: '風險、詐騙網址查詢',
-  icons: "favicon.ico"
+  icons: "favicon.ico",
+  keywords: [
+    "詐騙網址",
+    "詐騙網站",
+    "投資網址",
+    "投資網站",
+    "詐騙",
+    "投資",
+    "虛擬貨幣",
+    "交易所",
+    "風險查詢",
+    "詐騙查詢"
+  ],
 };
 
 export default function RootLayout({

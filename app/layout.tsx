@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: '查網站-風險詐騙網站查詢',
-  description: '風險、詐騙網址查詢',
+  description: '風險、詐騙網址查詢 new',
   icons: "favicon.ico",
   keywords: [
     "詐騙網址",
